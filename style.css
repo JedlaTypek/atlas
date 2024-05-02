@@ -1,0 +1,19 @@
+html {
+    background-color: #333;
+}
+
+header{
+    padding-top: 120px;
+    padding-bottom: 120px;
+    text-align: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 100%), url(header.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}   
+
+h1{
+    font-size: 60px;
+    line-height: 78px;
+    text-transform: uppercase;
+}
