@@ -1,8 +1,9 @@
-html {
+body {
     background-color: #333;
 }
 
 header{
+    color: white;
     padding-top: 120px;
     padding-bottom: 120px;
     text-align: center;
@@ -10,10 +11,47 @@ header{
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-}   
+}
+
+footer{
+    color: white;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    text-align: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 100%), url(header.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+footer p{
+    margin: 0;
+}
+
+main{
+    max-width: 1600px;
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
 
 h1{
     font-size: 60px;
     line-height: 78px;
     text-transform: uppercase;
+}
+
+.col-xl-2, .col-lg-2, .col-md-4, .col-sm-6{
+    padding-top: calc(1.5rem * 0.5);
+    padding-bottom: calc(1.5rem * 0.5);
+}
+
+.card{
+    background-color: #222;
+    color: white;
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    color: white
 }
