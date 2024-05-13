@@ -1,9 +1,25 @@
 year.innerText = new Date().getFullYear();
 
-fetch('https://restcountries.com/v3.1/region/europe')
+let kontinent = 'europe';
+
+document.addEventListener('DOMContentLoaded', function() {
+    zmen();
+});
+
+window.addEventListener('popstate', function() {
+    zmen();
+});
+
+selContinent.addEventListener('change', function(){
+    kontinent = selContinent.value;
+    zmen();
+})
+
+function zmen(){
+    staty.innerHTML = '';
+    fetch(`https://restcountries.com/v3.1/region/${kontinent}`) //region/europe
     .then((response) => response.json())
     .then((data) => {
-        console.log(data);
         data.forEach(stat => {
             let countryCard = `
             <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">      
@@ -20,19 +36,28 @@ fetch('https://restcountries.com/v3.1/region/europe')
                     </div>
                 </div>
             </div>`;
+            let currencyNames = stat.currencies ? Object.values(stat.currencies).map(c => c.name).join(', ') : 'No currency data';
+            let currencySymbols = stat.currencies ? Object.values(stat.currencies).map(c => c.symbol).join(', ') : '';
+            let coatOfArms = stat.coatOfArms.png ? stat.coatOfArms.png : "";
             let modal = `
             <div class="modal fade" id="${stat.cca2}Modal" tabindex="-1" role="dialog" aria-labelledby="${stat.cca2}ModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="${stat.cca2}ModalTitle">${stat.translations.ces.common}</h5>
+                    <h5 class="modal-title">${stat.translations.ces.common}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <img class="card-img-top p-3" src="${stat.flags.png}" alt="${stat.flags.alt}">
-                    <img class="card-img-top p-3" src="${stat.coatOfArms.png}">
-                    <p><b>Oficiální název:</b> ${stat.name.official}</p>
-                    <p><b>Měna:</b> ${Object.values(stat.currencies).map(c => c.name)} (${Object.values(stat.currencies).map(c => c.symbol)})</p>
+                    <div class="rowObrazky">
+                        <img class="card-img-top p-3" src="${stat.flags.png}" alt="${stat.flags.alt}">
+                        <img class="card-img-top p-3" src="${coatOfArms}">
+                    </div>
+                    <p><b>Oficiální název:</b> ${stat.translations.ces.official}</p>
+                    <p><b>Počet obyvatel:</b> ${stat.population}</p>
+                    <p><b>Rozloha:</b> ${stat.area} km<sup>2</sup></p>
+                    <p><b>Hlavní město:</b> ${stat.capital}</p>
+                    <p><b>Měna:</b> ${currencyNames} (${currencySymbols})</p>
+                    <p><a href="${stat.maps.googleMaps}" target="_blank">Zobrazit na mapě</a></p>
                 </div>
                 </div>
             </div>
@@ -47,3 +72,4 @@ fetch('https://restcountries.com/v3.1/region/europe')
             new bootstrap.Modal(modal);
         });
     });
+}
